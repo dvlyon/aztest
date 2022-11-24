@@ -22,21 +22,13 @@ interface Show {
     network?: {
         id: number
         name: string
-        country?: {
-            name: string
-            code: string
-            timezone: string
-        }
+        country?: ShowCountry
         officialSite: string
     }
     webChannel?: {
         id: number
         name: string
-        country?: {
-            name: string
-            code: string
-            timezone: string
-        }
+        country?: ShowCountry
         officialSite: string
     }
     dvdCountry: string
@@ -45,9 +37,9 @@ interface Show {
         thetvdb: number
         imdb: string
     }
-    image: {
-        medium: string
-        original: string
+    image?: {
+        medium?: string
+        original?: string
     }
     summary?: string
     updated: number
@@ -61,5 +53,9 @@ interface Show {
         nextepisode: {
             href: string
         }
+    }
+    _embedded?: {
+        images?: ShowImage[]
+        cast?: ShowCast[]
     }
 }
