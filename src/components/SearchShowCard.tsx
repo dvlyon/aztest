@@ -7,6 +7,8 @@ import {
     View,
 } from 'react-native'
 import { Colours } from '../styles/Colours'
+import { Fonts } from '../styles/Fonts'
+import DarkModeText from './DarkModeText'
 
 interface ISearchShowCard {
     show: Show
@@ -40,41 +42,28 @@ const SearchShowCard = ({ show, onPress }: ISearchShowCard) => {
                     />
                 </View>
                 <View style={styles.cardContent}>
-                    <Text
+                    <DarkModeText
                         numberOfLines={1}
-                        style={[
-                            styles.cardTitle,
-                            {
-                                color: isDarkMode ? Colours.white : Colours.black,
-                            },
-                        ]}>
-                        {show.name}
-                    </Text>
-                    <Text
+                        style={Fonts.title}
+                        text={show.name}
+                        title
+                    />
+                    <DarkModeText
                         numberOfLines={1}
-                        style={[
-                            styles.cardSubTitle,
-                            {
-                                color: isDarkMode ? Colours.white : Colours.black,
-                            },
-                        ]}>
-                        {show.network?.name || show.webChannel?.name}
-                    </Text>
+                        style={Fonts.subTitle}
+                        text={show.network?.name || show.webChannel?.name}
+                        title
+                    />
                     <View style={[
                         styles.cardDivider,
                         {
                             borderBottomColor: isDarkMode ? Colours.white : Colours.black,
                         }]} />
-                    <Text
+                    <DarkModeText
                         numberOfLines={3}
-                        style={[
-                            styles.cardDescription,
-                            {
-                                color: isDarkMode ? Colours.light : Colours.dark,
-                            },
-                        ]}>
-                        {show.summary?.replace(/(<([^>]+)>)/ig, '')}
-                    </Text>
+                        style={[Fonts.paragraph, styles.cardDescription]}
+                        text={show.summary?.replace(/(<([^>]+)>)/ig, '')}
+                    />
                 </View>
             </View>
         </Pressable>
@@ -103,21 +92,11 @@ const styles = StyleSheet.create({
         padding: 16,
         flex: 2,
     },
-    cardTitle: {
-        fontSize: 24,
-        fontWeight: '600',
-    },
-    cardSubTitle: {
-        fontSize: 21,
-        fontWeight: '500',
-    },
     cardDivider: {
         borderBottomWidth: StyleSheet.hairlineWidth,
         marginBottom: 6,
     },
     cardDescription: {
         marginTop: 8,
-        fontSize: 18,
-        fontWeight: '400',
     },
 })
