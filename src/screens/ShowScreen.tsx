@@ -24,7 +24,7 @@ const ShowScreen = ({ navigation, route }: NativeStackScreenProps<RootStackParam
     useEffect(() => {
         const getShow = async () => {
             try {
-                const { data, status } = await axios.get<Show>(`https://api.tvmaze.com/shows/${route.params.showId}`)
+                const { data, status } = await axios.get<Show>(`https://api.tvmaze.com/shows/${route.params.showId}?embed[]=images&embed[]=cast`)
 
                 if (status === 200) {
                     setShow(data)
