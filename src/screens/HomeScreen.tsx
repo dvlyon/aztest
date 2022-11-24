@@ -23,7 +23,6 @@ import Toast from 'react-native-toast-message'
     Fetches shows information using the searchTerm provided by the user.
     Renders a SearchShowCard for each show in the response.
 */
-
 const HomeScreen = ({ navigation }: NativeStackScreenProps<RootStackParamList, 'Home'>) => {
     const [searchTerm, setsearchTerm] = useState('')
     const [shows, setShows] = useState<Show[]>([])

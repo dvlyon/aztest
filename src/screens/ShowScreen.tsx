@@ -6,13 +6,14 @@ import axios from 'axios'
 import { RootStackParamList } from '../../App'
 import { useNetInfo } from '@react-native-community/netinfo'
 import Toast from 'react-native-toast-message'
+import DarkModeText from '../components/DarkModeText'
+import { Fonts } from '../styles/Fonts'
 
 /*
     Screen that displays a show's information.
     Fetches the show information using the showId from the route params.
     Prefers original over medium size images.
 */
-
 const ShowScreen = ({ navigation, route }: NativeStackScreenProps<RootStackParamList, 'Show'>) => {
     const [show, setShow] = useState<Show | undefined>(undefined)
     const [loading, setLoading] = useState(false)
@@ -82,52 +83,28 @@ const ShowScreen = ({ navigation, route }: NativeStackScreenProps<RootStackParam
                                 shadowColor: isDarkMode ? Colours.white : Colours.black,
                             }
                         ]}>
-                            <Text
-                                style={[
-                                    styles.sectionTitle,
-                                    {
-                                        color: isDarkMode ? Colours.white : Colours.black,
-                                    },
-                                ]}>
-                                {show.name} {show.premiered && `(${new Date(show.premiered).getFullYear()})`}
-                            </Text>
-                            <Text
-                                style={[
-                                    styles.sectionSubTitle,
-                                    {
-                                        color: isDarkMode ? Colours.white : Colours.black,
-                                    },
-                                ]}>
-                                {show.network?.name || show.webChannel?.name}
-                            </Text>
+                            <DarkModeText
+                                style={[Fonts.title, styles.spacing]}
+                                text={`${show.name} ${show.premiered && `(${new Date(show.premiered).getFullYear()})`}`}
+                                title
+                            />
+                            <DarkModeText
+                                style={[Fonts.subTitle, styles.spacing]}
+                                text={show.network?.name || show.webChannel?.name}
+                                title
+                            />
                             <View style={[
                                 styles.sectionDivider,
                                 {
                                     borderBottomColor: isDarkMode ? Colours.white : Colours.black,
-                                }]} />
-                            <Text
-                                style={[
-                                    styles.sectionDescription,
-                                    {
-                                        color: isDarkMode ? Colours.light : Colours.dark,
-                                    },
-                                ]}>
-                                {show.summary?.replace(/(<([^>]+)>)/ig, '')}
-                            </Text>
-                            <Text
-                                style={{
-                                    color: isDarkMode ? Colours.light : Colours.dark,
-                                }}
-                            >
-                                Genres: {show?.genres.join(', ')}
-                            </Text>
-                            <Text
-                                style={{
-                                    color: isDarkMode ? Colours.light : Colours.dark,
-                                }}
-                            >
-                                Status: {show?.status}
-                            </Text>
+                                }]}
+                            />
+                            <DarkModeText
+                                style={[Fonts.paragraph, styles.sectionDescription]}
+                                text={show.summary?.replace(/(<([^>]+)>)/ig, '')}
+                            />
+                            <DarkModeText text={`Genres: ${show?.genres.join(', ')}`} />
+                            <DarkModeText text={`Status: ${show?.status}`} />
                             {show.officialSite && (
                                 <Text
                                     style={{
@@ -161,14 +138,7 @@ const styles = StyleSheet.create({
         borderTopStartRadius: 32,
         padding: 16,
     },
-    sectionTitle: {
-        fontSize: 24,
-        fontWeight: '600',
-        marginBottom: 6,
-    },
-    sectionSubTitle: {
-        fontSize: 21,
-        fontWeight: '500',
+    spacing: {
         marginBottom: 6,
     },
     sectionDivider: {
@@ -176,8 +146,6 @@ const styles = StyleSheet.create({
         marginBottom: 12,
     },
     sectionDescription: {
-        fontSize: 18,
-        fontWeight: '400',
         marginBottom: 16,
     },
 })
